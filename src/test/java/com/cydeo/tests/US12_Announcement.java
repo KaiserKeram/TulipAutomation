@@ -66,7 +66,7 @@ public class US12_Announcement {
 }
     @AfterMethod
     public void teardown(){
-     driver.close();
+   //  driver.close();
 }
 }
 /*
