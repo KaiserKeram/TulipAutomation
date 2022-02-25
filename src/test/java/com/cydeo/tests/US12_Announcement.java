@@ -37,14 +37,14 @@ public class US12_Announcement {
         WebElement announcementsBtn=driver.findElement(By.xpath("//span[text()='Announcement']"));
         announcementsBtn.click();
         driver.switchTo().frame(driver.findElement(By.xpath("//iframe[@class='bx-editor-iframe']")));
-        String myAnouncement="please join the meeting in 10 minutes";
+        String myAnnouncement="please join the meeting in 10 minutes";
 
-        driver.findElement(By.xpath("//body")).sendKeys(Keys.CLEAR+myAnouncement);
+        driver.findElement(By.xpath("//body")).sendKeys(Keys.CLEAR+myAnnouncement);
 
         driver.switchTo().defaultContent();
         driver.findElement(By.xpath("//button[@class='ui-btn ui-btn-lg ui-btn-primary']")).click();
         String expectedAnoucement=driver.findElement(By.xpath("//*[@id=\"blog_post_body_1395\"]")).getText();
-        Assert.assertEquals(myAnouncement,expectedAnoucement);
+        Assert.assertEquals(myAnnouncement,expectedAnoucement);
         // need to verify if i got it in other page . one step left
 
     }
