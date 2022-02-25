@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit;
 public class TC04 {
   public WebDriver driver;
    @Test
-    public void setupDriver(){
+    public void goToMyprofile(){
         driver= WebDriverFactory.getDriver("chrome");
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
