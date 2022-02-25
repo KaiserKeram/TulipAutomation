@@ -1,22 +1,34 @@
 package com.cydeo.tests;
 
 import com.cydeo.utilities.WebDriverFactory;
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.util.concurrent.TimeUnit;
 
 public class TC04 {
-  public WebDriver driver;
-   @Test
-    public void goToMyprofile(){
-        driver= WebDriverFactory.getDriver("chrome");
+  static WebDriver driver;
+    @BeforeClass
+    public static void driverSetup(){
+        driver = WebDriverFactory.getDriver("chrome");
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+
+    }
+
+
+
+   @Test
+    public void goToMyprofile(){
+
         driver.get("https://login1.nextbasecrm.com");
 
 
@@ -48,6 +60,10 @@ public class TC04 {
 
        }
 
+    @AfterMethod
+    public void tearDown(){
+        driver.quit();
+    }
    }
 
 
