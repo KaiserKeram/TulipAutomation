@@ -5,6 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -27,48 +28,70 @@ public class Tulip_TL_6 {
     //Logout
 
     WebDriver driver;
+
     @BeforeMethod
     public void setUp() {
         driver = WebDriverFactory.getDriver("chrome");
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-
-        String userName="hr31@cydeo.com";
-        String password="UserUser";
-
-        driver.get("https://login2.nextbasecrm.com");
-        WebElement InputUserName = driver.findElement(By.xpath("//input[@class='login-inp']"));
-        InputUserName.sendKeys(userName);
-
-        WebElement InputPassword = driver.findElement(By.xpath("//input[@type='password']"));
-        InputPassword.sendKeys(password);
-
-        WebElement loginButton= driver.findElement(By.xpath("//input[@value='Log In']"));
-        loginButton.click();
+        //  1-go to login page
+        driver.get("https://login1.nextbasecrm.com/");
     }
 
     @Test
-    public void verifyTheOptions(){
-        WebElement profileModule= driver.findElement(By.xpath("//span[@class='user-name']"));
-        profileModule.click();
+    public void loginAllUser() {
+        ArrayList<String> username = new ArrayList<>();
+        username.addAll(Arrays.asList("hr31@cybertekschool.com", "hr32@cybertekschool.com", "hr33@cybertekschool.com",
+                "helpdesk31@cybertekschool.com", "helpdesk32@cybertekschool.com", "helpdesk33@cybertekschool.com",
+                "marketing31@cybertekschool.com", "marketing32@cybertekschool.com", "marketing33@cybertekschool.com"));
 
-        WebElement module;
-        ArrayList<String> actualText = new ArrayList<>();
-        ArrayList<String> expectedText = new ArrayList<>(Arrays.asList("My Profile","Edit Profile Settings","Themes","Configure notifications","Logout"));
-        for (int i = 1; i <=5 ; i++) {
-            module=driver.findElement(By.xpath("(//div[@class='menu-popup-items'])/*["+i+"]/*[2]"));
+        String password = "UserUser";
 
-            actualText.add(module.getText());
+        //for (String eachUser : username) {
+
+        for (int j = 0; j < username.size(); j++) {
 
 
+            driver.findElement(By.xpath("//input[@name='USER_LOGIN']")).sendKeys(username.get(j));
+            driver.findElement(By.xpath("//input[@name='USER_PASSWORD']")).sendKeys(password);
+            driver.findElement(By.xpath("//input[@class='login-btn']")).click();
+            WebElement profileModule = driver.findElement(By.xpath("//div[@id='user-block']"));
+            profileModule.click();
+
+            WebElement module;
+            ArrayList<String> actualText = new ArrayList<>();
+            ArrayList<String> expectedText = new ArrayList<>(Arrays.asList("My Profile", "Edit Profile Settings", "Themes", "Configure notifications", "Logout"));
+
+            driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+            for (int i = 1; i <= 5; i++) {
+                module = driver.findElement(By.xpath("(//div[@class='menu-popup-items'])/*[" + i + "]/*[2]"));
+
+                actualText.add(module.getText());
+
+
+            }
+            System.out.println("expectedText = " + expectedText);
+            System.out.println("actualText = " + actualText);
+
+            Assert.assertTrue(actualText.equals(expectedText));
+
+            driver.findElement(By.xpath("//a[.='Log out']")).click();
+
+            driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+
+
+            driver.findElement(By.xpath("//input[@name='USER_LOGIN']")).clear();
         }
-        System.out.println("expectedText = " + expectedText);
-        System.out.println("actualText = " + actualText);
-        Assert.assertTrue(actualText.equals(expectedText));
-
-
-
     }
 
-
+    @AfterMethod
+    public void tearDown() {
+        driver.close();
+    }
 }
+
+
+
+
+
+
