@@ -53,7 +53,7 @@ public class TL_13_Kaiser {
         AppreciationBtn.click();
 
         // Enter Appreciation words
-        String AppreciationWords = "Thank you!";
+        String AppreciationWords = "Thank you very much!";
         driver.switchTo().frame(driver.findElement(By.xpath("//iframe[@class='bx-editor-iframe']")));
         driver.findElement(By.xpath("//body")).sendKeys(Keys.CLEAR + AppreciationWords);
 
