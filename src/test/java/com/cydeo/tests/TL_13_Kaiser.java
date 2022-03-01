@@ -23,37 +23,96 @@ public class TL_13_Kaiser {
         driver = WebDriverFactory.getDriver("chrome");
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+
+        // Go to the https://login2.nextbasecrm.com/
+        driver.get("https://login2.nextbasecrm.com/");
     }
 
-    @Test
+    // Test with hr Credential
+
+    @Test (priority = 1)
+    public void hrLogIn_1() {
+        driver.findElement(By.xpath("//input[@name = 'USER_LOGIN']")).sendKeys("hr37@cydeo.com");
+        driver.findElement(By.xpath("//input[@name = 'USER_PASSWORD']")).sendKeys("UserUser");
+        driver.findElement(By.xpath("//input[@type = 'submit']")).click();
+    }
+    @Test (priority = 2)
+    public void hrLogIn_2() {
+        driver.findElement(By.xpath("//input[@name = 'USER_LOGIN']")).sendKeys("hr38@cydeo.com");
+        driver.findElement(By.xpath("//input[@name = 'USER_PASSWORD']")).sendKeys("UserUser");
+        driver.findElement(By.xpath("//input[@type = 'submit']")).click();
+    }
+
+    @Test (priority = 3)
+    public void hrLogIn_3() {
+        driver.findElement(By.xpath("//input[@name = 'USER_LOGIN']")).sendKeys("hr39@cydeo.com");
+        driver.findElement(By.xpath("//input[@name = 'USER_PASSWORD']")).sendKeys("UserUser");
+        driver.findElement(By.xpath("//input[@type = 'submit']")).click();
+    }
+
+    // Test with helpdesk Credential
+
+    @Test (priority = 4)
+    public void helpdeskLogIn_1() {
+        driver.findElement(By.xpath("//input[@name = 'USER_LOGIN']")).sendKeys("helpdesk37@cydeo.com");
+        driver.findElement(By.xpath("//input[@name = 'USER_PASSWORD']")).sendKeys("UserUser");
+        driver.findElement(By.xpath("//input[@type = 'submit']")).click();
+    }
+    @Test (priority = 5)
+    public void helpdeskLogIn_2() {
+        driver.findElement(By.xpath("//input[@name = 'USER_LOGIN']")).sendKeys("helpdesk38@cydeo.com");
+        driver.findElement(By.xpath("//input[@name = 'USER_PASSWORD']")).sendKeys("UserUser");
+        driver.findElement(By.xpath("//input[@type = 'submit']")).click();
+    }
+
+    @Test (priority = 6)
+    public void helpdeskLogIn_3() {
+        driver.findElement(By.xpath("//input[@name = 'USER_LOGIN']")).sendKeys("helpdesk39@cydeo.com");
+        driver.findElement(By.xpath("//input[@name = 'USER_PASSWORD']")).sendKeys("UserUser");
+        driver.findElement(By.xpath("//input[@type = 'submit']")).click();
+    }
+
+    // Test with marketing Credential
+
+    @Test (priority = 7)
+    public void marketingLogIn_1() {
+        driver.findElement(By.xpath("//input[@name = 'USER_LOGIN']")).sendKeys("marketing37@cydeo.com");
+        driver.findElement(By.xpath("//input[@name = 'USER_PASSWORD']")).sendKeys("UserUser");
+        driver.findElement(By.xpath("//input[@type = 'submit']")).click();
+    }
+
+    @Test (priority = 8)
+    public void marketingLogIn_2() {
+        driver.findElement(By.xpath("//input[@name = 'USER_LOGIN']")).sendKeys("marketing38@cydeo.com");
+        driver.findElement(By.xpath("//input[@name = 'USER_PASSWORD']")).sendKeys("UserUser");
+        driver.findElement(By.xpath("//input[@type = 'submit']")).click();
+    }
+
+    @Test (priority = 9)
+    public void marketingLogIn_3() {
+        driver.findElement(By.xpath("//input[@name = 'USER_LOGIN']")).sendKeys("marketing39@cydeo.com");
+        driver.findElement(By.xpath("//input[@name = 'USER_PASSWORD']")).sendKeys("UserUser");
+        driver.findElement(By.xpath("//input[@type = 'submit']")).click();
+    }
+
+    @Test (priority = 10)
     public void verifyAppreciation_TL16() {
-        // Go to the https://nextbasecrm.com/
-        driver.get("https://nextbasecrm.com/");
 
-        // Click login button
-        WebElement LoginBtn = driver.findElement(By.xpath("//a[. = 'Login']"));
-        LoginBtn.click();
-
-        // Enter Login (hr28@cybertekschool.com) and passWord (UserUser)
-        WebElement LogIn = driver.findElement(By.xpath("//input[@name = 'USER_LOGIN']"));
-        WebElement passWord = driver.findElement(By.xpath("//input[@name = 'USER_PASSWORD']"));
-        LogIn.sendKeys("hr28@cybertekschool.com");
-        passWord.sendKeys("UserUser");
-
-        // Click Log In button
-        WebElement LogInButton = driver.findElement(By.xpath("//input[@type = 'submit']"));
-        LogInButton.click();
+        // Enter Login ("marketing39@cydeo.com") and passWord (UserUser) and click Login button
+        driver.findElement(By.xpath("//input[@name = 'USER_LOGIN']")).sendKeys("marketing39@cydeo.com");
+        driver.findElement(By.xpath("//input[@name = 'USER_PASSWORD']")).sendKeys("UserUser");
+        driver.findElement(By.xpath("//input[@type = 'submit']")).click();
 
         // Click the MORE tab.
-        WebElement MOREBtn = driver.findElement(By.id("feed-add-post-form-link-text"));
-        MOREBtn.click();
+        WebElement moreBtn = driver.findElement(By.id("feed-add-post-form-link-text"));
+        moreBtn.click();
 
         // Click Appreciation Button
         WebElement AppreciationBtn = driver.findElement(By.xpath("//span[text()='Appreciation']"));
         AppreciationBtn.click();
 
         // Enter Appreciation words
-        String AppreciationWords = "Thank you very much!";
+        String AppreciationWords = "amazing code!";
         driver.switchTo().frame(driver.findElement(By.xpath("//iframe[@class='bx-editor-iframe']")));
         driver.findElement(By.xpath("//body")).sendKeys(Keys.CLEAR + AppreciationWords);
 
@@ -65,31 +124,16 @@ public class TL_13_Kaiser {
         //Verify the Appreciation word is Displayed on the feed
         String expectedMessage = AppreciationWords;
         String actualMessage = driver.findElement(By.xpath("//div[@class = 'feed-post-text-block-inner-inner']")).getText();
-        if(actualMessage.equals(expectedMessage)){
-            System.out.println("Verification is Passed!");
-        }else{
-            System.out.println("Verification is Failed!");
-        }
+        Assert.assertEquals(actualMessage, expectedMessage);
     }
 
-    @Test
+    @Test (priority = 11)
     public void verifyAppreciation_TL17() {
-        // Go to the https://nextbasecrm.com/
-        driver.get("https://nextbasecrm.com/");
 
-        // Click login button
-        WebElement LoginBtn = driver.findElement(By.xpath("//a[. = 'Login']"));
-        LoginBtn.click();
-
-        // Enter Login (hr28@cybertekschool.com) and passWord (UserUser)
-        WebElement LogIn = driver.findElement(By.xpath("//input[@name = 'USER_LOGIN']"));
-        WebElement passWord = driver.findElement(By.xpath("//input[@name = 'USER_PASSWORD']"));
-        LogIn.sendKeys("hr28@cybertekschool.com");
-        passWord.sendKeys("UserUser");
-
-        // Click Log In button
-        WebElement LogInButton = driver.findElement(By.xpath("//input[@type = 'submit']"));
-        LogInButton.click();
+        // Enter Login ("marketing39@cydeo.com") and passWord (UserUser) and click Login button
+        driver.findElement(By.xpath("//input[@name = 'USER_LOGIN']")).sendKeys("marketing39@cydeo.com");
+        driver.findElement(By.xpath("//input[@name = 'USER_PASSWORD']")).sendKeys("UserUser");
+        driver.findElement(By.xpath("//input[@type = 'submit']")).click();
 
         // Click the MORE tab.
         WebElement MOREBtn = driver.findElement(By.id("feed-add-post-form-link-text"));
