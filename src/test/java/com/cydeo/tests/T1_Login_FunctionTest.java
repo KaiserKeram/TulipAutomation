@@ -10,6 +10,7 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.util.concurrent.TimeUnit;
@@ -28,19 +29,30 @@ public class T1_Login_FunctionTest {
     }
 
 
-     //Click
-    @Test
-    public void login_with_valid_credentials_with_login_btn() {
+    @DataProvider(name = "credentials")
+    public Object[][] credentials() {
+        return new Object[][]{
+                {"hr16@cydeo.com", "UserUser"}, {"hr17@cydeo.com", "UserUser"}, {"hr18@cydeo.com", "UserUser"},
+                {"helpdesk16@cydeo.com", "UserUser"}, {"helpdesk17@cydeo.com", "UserUser"}, {"helpdesk18@cydeo.com", "UserUser"},
+                {"marketing16@cydeo.com", "UserUser"}, {"marketing17@cydeo.com", "UserUser"}, {"marketing18@cydeo.com", "UserUser"}
+        };
+    }
+
+
+
+
+    @Test(dataProvider = "credentials", priority = 1)
+    public void login_with_valid_credentials_with_login_btn(String userName, String password) {
         // 2-write username
         WebElement inputUserName= driver.findElement(By.xpath("//input[@name='USER_LOGIN']"));
-        inputUserName.sendKeys("hr32@cydeo.com");
+        inputUserName.sendKeys(userName);
         ///hr32@cydeo.com
         //helpdesk1@cybertekschool.com  UserUser
         //marketing33@cydeo.com
 
         // 3-write password
         WebElement inputPassword= driver.findElement(By.xpath("//input[@name='USER_PASSWORD']"));
-        inputPassword.sendKeys("UserUser");
+        inputPassword.sendKeys(password);
 
 
         //4-click login button
@@ -48,6 +60,7 @@ public class T1_Login_FunctionTest {
         BrowserUtils.sleep(3);
         loginBtn.click();
 
+        driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
         // 5 verify title
         String expectedTitle="Portal";
         String actualTitle=driver.getTitle();
@@ -55,15 +68,15 @@ public class T1_Login_FunctionTest {
     }
 
     //Enter button
-    @Test
-    public void login_with_valid_credentials_with_enter_btn() {
+    @Test(dataProvider = "credentials", priority = 2)
+    public void login_with_valid_credentials_with_enter_btn(String userName, String password) {
         // 2-write username
-        WebElement userName = driver.findElement(By.xpath("(//input[@class='login-inp'])[1]"));
-        userName.sendKeys("helpdesk1@cybertekschool.com");
+        WebElement userName1 = driver.findElement(By.xpath("(//input[@class='login-inp'])[1]"));
+        userName1.sendKeys(userName);
 
         //3-write password + Enter
-        WebElement password = driver.findElement(By.xpath("(//input[@class='login-inp'])[2]"));
-        password.sendKeys(("UserUser")+ Keys.ENTER);
+        WebElement password1 = driver.findElement(By.xpath("(//input[@class='login-inp'])[2]"));
+        password1.sendKeys((password)+ Keys.ENTER);
 
 
         // 4- verify title
@@ -100,10 +113,10 @@ public class T1_Login_FunctionTest {
 
     }
 
-    //@AfterMethod
-    //public void teardown(){
-        //driver.close();
-    //}
+    @AfterMethod
+    public void teardown(){
+        driver.close();
+    }
 
 
 }
