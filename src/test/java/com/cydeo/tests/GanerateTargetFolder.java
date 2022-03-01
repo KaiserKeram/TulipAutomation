@@ -1,7 +1,7 @@
 package com.cydeo.tests;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
+
 public class GanerateTargetFolder {
-    public static void main(String[] args) {
-        System.out.println("WoddenSpoon");
-    }
+
 }

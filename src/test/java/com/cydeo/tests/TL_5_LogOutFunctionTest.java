@@ -12,6 +12,7 @@ import org.testng.annotations.Test;
 import java.util.concurrent.TimeUnit;
 
 public class TL_5_LogOutFunctionTest {
+
     WebDriver driver;
     @BeforeMethod
     public void setDriver(){
@@ -69,6 +70,7 @@ public class TL_5_LogOutFunctionTest {
 
     //-------------------------------- Test with marketing Credential-----------------------------------
 
+
     @Test(priority=3)
     public void marketingLogOut(){
         CRM_Utilities.crm_login( driver,"marketing37@cydeo.com","UserUser");
@@ -86,4 +88,5 @@ public class TL_5_LogOutFunctionTest {
         driver.findElement(By.linkText("Log out")).click();
         driver.findElement(By.xpath("//input[@name='USER_LOGIN']")).clear();
     }
+
 }
