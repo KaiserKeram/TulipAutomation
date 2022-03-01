@@ -13,8 +13,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
-public class TL11_CreateTask {
-
+public class TL11_NagativeTestCase {
     WebDriver driver;
 
     @BeforeMethod
@@ -27,7 +26,7 @@ public class TL11_CreateTask {
     }
 
     @Test
-    public void create_task_successfuly() {
+    public void create_task_without_Title() {
         ArrayList<String> username = new ArrayList<>();
         username.addAll(Arrays.asList("hr31@cybertekschool.com", "hr32@cybertekschool.com", "hr33@cybertekschool.com",
                 "helpdesk31@cybertekschool.com", "helpdesk32@cybertekschool.com", "helpdesk33@cybertekschool.com",
@@ -48,12 +47,8 @@ public class TL11_CreateTask {
 
             driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 
-            WebElement taskTitle = driver.findElement(By.xpath("//input[@data-bx-id=\"task-edit-title\"]"));
-            taskTitle.sendKeys("Cydeo B25");
-            driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 
-           WebElement iframe = driver.findElement(By.xpath("//iframe[@class=\"bx-editor-iframe\"]"));
-            driver.switchTo().frame(1);
+            driver.switchTo().frame(driver.findElement(By.xpath("(//iframe[@class='bx-editor-iframe'])[2]")));
 
             driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
             WebElement taskMessage = driver.findElement(By.xpath("//body[@style=\"min-height: 84px;\"]"));
@@ -65,10 +60,16 @@ public class TL11_CreateTask {
             WebElement sendButton = driver.findElement(By.xpath("//button[@id=\"blog-submit-button-save\"]"));
 
             sendButton.click();
+            driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 
-            WebElement taskPopUp = driver.findElement(By.xpath("//div[@class=\"feed-create-task-popup-title\"]"));
+            WebElement taskErrorMessage = driver.findElement(By.xpath("//div[@class=\"task-message-label error\"]"));
+            String actualTaskErrorMessage = taskErrorMessage.getText();
+            String expectedTaskErrorMessage ="The task name is not specified.";
+            Assert.assertEquals(actualTaskErrorMessage,expectedTaskErrorMessage);
 
-            Assert.assertTrue(taskPopUp.isDisplayed());
+
+
+
 
             driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
             WebElement profileModule = driver.findElement(By.xpath("//div[@id='user-block']"));
@@ -90,6 +91,4 @@ public class TL11_CreateTask {
     public void tearDown(){
         driver.close();
     }
-
-
 }
