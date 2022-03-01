@@ -136,8 +136,8 @@ public class TL_13_Kaiser {
         driver.findElement(By.xpath("//input[@type = 'submit']")).click();
 
         // Click the MORE tab.
-        WebElement MOREBtn = driver.findElement(By.id("feed-add-post-form-link-text"));
-        MOREBtn.click();
+        WebElement moreBtn = driver.findElement(By.id("feed-add-post-form-link-text"));
+        moreBtn.click();
 
         // Click Appreciation Button
         WebElement AppreciationBtn = driver.findElement(By.xpath("//span[text()='Appreciation']"));
