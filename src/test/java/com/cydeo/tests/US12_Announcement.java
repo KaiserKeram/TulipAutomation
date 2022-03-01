@@ -14,41 +14,32 @@ import java.util.concurrent.TimeUnit;
 
 public class US12_Announcement {
     WebDriver driver;
-
     @BeforeMethod
     public void setupMethod() {
-        String appUrl = "https://nextbasecrm.com/";
-        String userName = "hr28@cybertekschool.com";
-        String password = "UserUser";
         driver = WebDriverFactory.getDriver("chrome");
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        driver.get(appUrl);
-        WebElement loginBtn = driver.findElement(By.xpath("//a[text()='Login']"));
+        driver.get("https://login1.nextbasecrm.com/");
+        driver.findElement(By.xpath("//input[@class='login-inp']")).sendKeys("hr28@cybertekschool.com");
+        driver.findElement(By.xpath("//input[@type='password']")).sendKeys("UserUser");
+        WebElement loginBtn = driver.findElement(By.xpath("//input[@value='Log In']"));
         loginBtn.click();
-        driver.findElement(By.xpath("//input[@class='login-inp']")).sendKeys(userName);
-        driver.findElement(By.xpath("//input[@type='password']")).sendKeys(password);
-        WebElement loginBtn1 = driver.findElement(By.xpath("//input[@value='Log In']"));
-        loginBtn1.click();
     }
 
     @Test
-    public void validMessage() {
-        WebElement moreBtn = driver.findElement(By.cssSelector("span[id='feed-add-post-form-link-text']"));
-        moreBtn.click();
-        WebElement announcementsBtn = driver.findElement(By.xpath("//span[text()='Announcement']"));
-        announcementsBtn.click();
+    public void validMessage() throws InterruptedException {
+        driver.findElement(By.cssSelector("span[id='feed-add-post-form-link-text']")).click();//more button
+        driver.findElement(By.xpath("//span[text()='Announcement']")).click();//announcements button
         driver.switchTo().frame(driver.findElement(By.xpath("//iframe[@class='bx-editor-iframe']")));
-        String myAnnouncement = "please join the meeting in 30 minutes";
-
-        driver.findElement(By.xpath("//body")).sendKeys(Keys.CLEAR + myAnnouncement);
+        driver.findElement(By.xpath("//body")).sendKeys("please join the meeting in 15 minutes");
 
         driver.switchTo().defaultContent();
         driver.findElement(By.xpath("//button[@class='ui-btn ui-btn-lg ui-btn-primary']")).click();
         WebElement expectedAnnoucement = driver.findElement(By.xpath("//*[@id=\"blog_post_body_1395\"]"));
-        String locator="//div[contains(.,'"+myAnnouncement+"')]";
+        String locator="//div[contains(.,'"+"please join the meeting in 15 minutes"+"')]";
         WebElement element = driver.findElement(By.xpath(locator));
         Assert.assertTrue(element.isDisplayed());
+        Thread.sleep(5000);
     }
 
 
@@ -56,12 +47,10 @@ public class US12_Announcement {
 
     @Test
     public void emptyContent()  {
-        WebElement moreBtn=driver.findElement(By.cssSelector("span[id='feed-add-post-form-link-text']"));
-        moreBtn.click();
-        WebElement announcementsBtn=driver.findElement(By.xpath("//span[text()='Announcement']"));
-        announcementsBtn.click();
-        driver.switchTo().frame(driver.findElement(By.xpath("//iframe[@class='bx-editor-iframe']")));
-        driver.findElement(By.xpath("//body")).sendKeys(Keys.CLEAR+" ");
+        driver.findElement(By.cssSelector("span[id='feed-add-post-form-link-text']")).click();
+        driver.findElement(By.xpath("//span[text()='Announcement']")).click();
+      driver.switchTo().frame(driver.findElement(By.xpath("//iframe[@class='bx-editor-iframe']")));
+      driver.findElement(By.xpath("//body")).sendKeys(Keys.CLEAR+" ");
 
         driver.switchTo().defaultContent();
         driver.findElement(By.xpath("//button[@class='ui-btn ui-btn-lg ui-btn-primary']")).click();
@@ -72,6 +61,6 @@ public class US12_Announcement {
     @AfterMethod
     public void teardown(){
 
-      driver.close();
+        driver.close();
     }
 }
