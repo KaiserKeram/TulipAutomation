@@ -24,19 +24,20 @@ public class US12_Announcement {
         driver.findElement(By.xpath("//input[@type='password']")).sendKeys("UserUser");
         WebElement loginBtn = driver.findElement(By.xpath("//input[@value='Log In']"));
         loginBtn.click();
+
     }
 
     @Test
     public void validMessage() throws InterruptedException {
-        driver.findElement(By.cssSelector("span[id='feed-add-post-form-link-text']")).click();//more button
+        String myAnouncement="xyy";
+        driver.findElement(By.xpath("//span[@id='feed-add-post-form-link-text']")).click();//more button
         driver.findElement(By.xpath("//span[text()='Announcement']")).click();//announcements button
         driver.switchTo().frame(driver.findElement(By.xpath("//iframe[@class='bx-editor-iframe']")));
-        driver.findElement(By.xpath("//body")).sendKeys("please join the meeting in 15 minutes");
-
+        driver.findElement(By.xpath("//body[@style='min-height: 119px;']")).sendKeys(myAnouncement);
         driver.switchTo().defaultContent();
         driver.findElement(By.xpath("//button[@class='ui-btn ui-btn-lg ui-btn-primary']")).click();
-        WebElement expectedAnnoucement = driver.findElement(By.xpath("//*[@id=\"blog_post_body_1395\"]"));
-        String locator="//div[contains(.,'"+"please join the meeting in 15 minutes"+"')]";
+        WebElement expectedAnnoucement = driver.findElement(By.xpath("//div[@class='feed-post-text-block-inner-inner']"));
+        String locator="//div[contains(.,'"+myAnouncement+"')]";
         WebElement element = driver.findElement(By.xpath(locator));
         Assert.assertTrue(element.isDisplayed());
         Thread.sleep(5000);
@@ -61,6 +62,6 @@ public class US12_Announcement {
     @AfterMethod
     public void teardown(){
 
-        driver.close();
+  //      driver.close();
     }
 }
