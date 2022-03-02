@@ -48,7 +48,7 @@ public class TL_5_LogOutFunctionTest {
         driver.findElement(By.xpath("//input[@name='USER_LOGIN']")).clear();
     }
 
-    //-------------------------------- Test with HelpDesk Credential-----------------------------------
+    //-------------------------------- Test with helpdesk Credential-----------------------------------
 
     @Test(priority=2)
     public void helpdeskLogOut(){
@@ -68,7 +68,8 @@ public class TL_5_LogOutFunctionTest {
         driver.findElement(By.xpath("//input[@name='USER_LOGIN']")).clear();
     }
 
-    //-------------------------------- Test with Marketing Credential-----------------------------------
+    //-------------------------------- Test with marketing Credential-----------------------------------
+
 
     @Test(priority=3)
     public void marketingLogOut(){
