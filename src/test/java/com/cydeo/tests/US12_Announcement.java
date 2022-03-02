@@ -69,32 +69,3 @@ public class US12_Announcement {
    //  driver.close();
 }
 }
-/*
-test case #1:
-link : https://login2.nextbasecrm.com/
-Steps:: Users are on the homepage
-            Users click MORE tab and select ANNOUNCEMENTS
-            Users write announcements message
-    Users click the SEND button
-           Verify the announcements is displayed on the feed
-test case 2:
-Description:  Users create announcements without content
-Environment:  https://login2.nextbasecrm.com/
-Steps::Users are on the homepage
-            Users click MORE tab and select ANNOUNCEMENT
-    Users click the SEND button
-           Verify “The message title is not specified” warning message is displayed on the page
-
-     public void setup(){
-        driver=WebDriverFactory.getDriver("chrome");
-        driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        driver.get(appUrl);
-        String expectedTitle="Web Orders Login";
-        String actualTitle=driver.getTitle();
-        Assert.assertEquals(actualTitle,expectedTitle,"Title did not match!");
-
-        driver.findElement(By.id("ctl00_MainContent_username")).sendKeys(userName);
-        driver.findElement(By.id("ctl00_MainContent_password")).sendKeys(password);
-        driver.findElement(By.id("ctl00_MainContent_login_button")).click();
- */
