@@ -1,10 +1,13 @@
 package com.cydeo.tests;
 
+import com.cydeo.utilities.ConfigurationReader;
 import com.cydeo.utilities.WebDriverFactory;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -14,42 +17,49 @@ public class Jewel_US8_VotePoll {
     WebDriver driver;
 
     @BeforeMethod
-    public void setUp() {
-        driver = WebDriverFactory.getDriver("chrome");
+    public void setupMethod() {
+
+        //We are getting the browserType dynamically from our configuration.properties file
+        String browserType = ConfigurationReader.getProperty("browser");
+
+        driver = WebDriverFactory.getDriver(browserType);
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
-        driver.get("https://login2.nextbasecrm.com");
 
-        //log in
-        WebElement InputUserName = driver.findElement(By.xpath("//input[@name='USER_LOGIN']"));
-        InputUserName.sendKeys("hr31@cydeo.com"); // passed
-        //  InputUserName.sendKeys("helpdesk31@cybertekschool.com"); //
-        // InputUserName.sendKeys("marketing33@cybertekschool.com"); //
+        driver.get(ConfigurationReader.getProperty("env1"));
 
-        WebElement InputPassword = driver.findElement(By.xpath("//input[@name='USER_PASSWORD']"));
-        InputPassword.sendKeys("UserUser");
+        com.nextbasecrm.utilities.CRM_Utilities.crm_login(driver);
 
-        WebElement loginButton = driver.findElement(By.xpath("//input[@class='login-btn']"));
-        loginButton.click();
-        //----------------------------------------
     }
 
     @Test
-    public void locateVOTE() throws InterruptedException {
-        //test case 2 test: task with no title;
-        driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
-        //  WebElement oneOption = driver.findElement(By.xpath("//*[@id=\"question1203\"]/table/tbody/tr[1]/td[1]/div/span/label[1]/span"));
-        WebElement oneOption = driver.findElement(By.xpath("//*[@id=\"question1204\"]/table/tbody/tr[1]/td[1]/div/span/label[2]"));
+    public void Vote() {
 
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        oneOption.click();
-        driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
-      //
-      //  WebElement voteButton = driver.findElement(By.xpath("//*[@id=\"vote-nSLjLH1162\"]/form/div[2]/button[2]/text()"));
-      //  driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
-       // voteButton.click();
-       // driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
+        WebElement optionButton = driver.findElement(By.xpath("//label[.='JAVA']"));
+
+        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", optionButton);
+        optionButton.click();
+        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+
+        WebElement voteButton = driver.findElement(By.xpath("(//button[.='Vote'])[1]"));
+
+        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", voteButton);
+
+        voteButton.click();
+        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        WebElement voteAgainButton = driver.findElement(By.xpath("(//button[.='Vote again'])[1]"));
+        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", voteAgainButton);
+        Assert.assertTrue(voteAgainButton.isDisplayed());
+
+        voteAgainButton.click();
     }
 
-
+    @AfterMethod
+    public void tearDown() {
+        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        driver.quit();
+    }
 }
