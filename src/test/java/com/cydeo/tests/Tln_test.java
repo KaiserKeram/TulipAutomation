@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 
 import java.util.concurrent.TimeUnit;
 
-public class Jewel_US_VOTE {
+public class Tln_test {
     WebDriver driver;
 
     @BeforeMethod
@@ -21,8 +21,8 @@ public class Jewel_US_VOTE {
 
         //log in
         WebElement InputUserName = driver.findElement(By.xpath("//input[@name='USER_LOGIN']"));
-        //InputUserName.sendKeys("hr31@cydeo.com"); // passed
-          InputUserName.sendKeys("helpdesk1@cybertekschool.com"); //
+        InputUserName.sendKeys("hr31@cydeo.com"); // passed
+       // InputUserName.sendKeys("helpdesk1@cybertekschool.com"); //
         // InputUserName.sendKeys("marketing33@cybertekschool.com"); //
 
         WebElement InputPassword = driver.findElement(By.xpath("//input[@name='USER_PASSWORD']"));
@@ -37,25 +37,21 @@ public class Jewel_US_VOTE {
     public void locateVOTE() throws InterruptedException {
         //test case 2 test: task with no title;
         driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
-        //  WebElement oneOption = driver.findElement(By.xpath("//*[@id=\"question1203\"]/table/tbody/tr[1]/td[1]/div/span/label[1]/span"));
-        WebElement oneOption = driver.findElement(By.xpath("//*[@id=\"question1204\"]/table/tbody/tr[1]/td[1]/div/span/label[2]"));
+          WebElement oneOption = driver.findElement(By.xpath("//*[@id=\"question1209\"]/table/tbody/tr[1]/td[1]/div/span/label[1]/span"));
 
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+          driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         oneOption.click();
         driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
         //
-        //WebElement voteButton = driver.findElement(By.xpath("//*[@id=\"vote-nSLjLH1162\"]/form/div[2]/button[2]/text()"));
 
-        //WebElement voteButton = driver.findElement(By.xpath("//*[@id=\"vote-mPlAdu1163\"]/form/div[2]/button[2]/text()"));
-        WebElement voteButton = driver.findElement(By.xpath("///button[@data-bx-vote-button='actVoting']\")).click();\n" +
-                "but it depends"));
+     //   WebElement voteButton = driver.findElement(By.xpath("//*[@id=\"vote-vNG4pq1163\"]/form/div[2]/button[2]/text()"));
+        WebElement voteButton = driver.findElement(By.xpath("//button[@data-bx-vote-button='actVoting']" ));
         driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
         voteButton.click();
         driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
 
+        //
+
 
     }
-
-
 }
-

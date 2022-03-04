@@ -28,7 +28,19 @@ public class Jewel_US8_VotePoll {
 
         driver.get(ConfigurationReader.getProperty("env1"));
 
-        com.nextbasecrm.utilities.CRM_Utilities.crm_login(driver);
+       // com.nextbasecrm.utilities.CRM_Utilities.crm_login(driver);
+        //log in
+        WebElement InputUserName = driver.findElement(By.xpath("//input[@name='USER_LOGIN']"));
+        InputUserName.sendKeys("hr31@cydeo.com"); // passed
+        //  InputUserName.sendKeys("helpdesk31@cybertekschool.com"); //
+        // InputUserName.sendKeys("marketing33@cybertekschool.com"); //
+
+        WebElement InputPassword = driver.findElement(By.xpath("//input[@name='USER_PASSWORD']"));
+        InputPassword.sendKeys("UserUser");
+
+        WebElement loginButton = driver.findElement(By.xpath("//input[@class='login-btn']"));
+        loginButton.click();
+        //----------------------------------------
 
     }
 
