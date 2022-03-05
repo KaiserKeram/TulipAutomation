@@ -10,7 +10,7 @@ import org.testng.annotations.Test;
 
 import java.util.concurrent.TimeUnit;
 
-public class Tln_test {
+public class US8_VOTE_a_POLL_Jewel {
     WebDriver driver;
 
     @BeforeMethod
