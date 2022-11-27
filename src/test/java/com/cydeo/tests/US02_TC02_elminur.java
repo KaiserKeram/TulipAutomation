@@ -17,6 +17,7 @@ public class US02_TC02_elminur {
     public void setUpMethod() {
         driver = WebDriverFactory.getDriver("chrome");
         driver.manage().window().maximize();
+        driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.get("https://login2.nextbasecrm.com");
     }
